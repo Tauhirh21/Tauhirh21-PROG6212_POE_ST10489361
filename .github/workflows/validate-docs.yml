@@ -1,0 +1,49 @@
+name: Validate Part 1 Documents
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Check /docs folder exists
+      run: |
+        if [ ! -d "docs" ]; then
+          echo "Error: /docs folder not found!"
+          exit 1
+        fi
+      shell: bash
+
+    - name: Check ERD file exists (PNG or PDF)
+      run: |
+        if ! ls docs/*.png docs/*.pdf 2>/dev/null; then
+          echo "Error: No ERD image (PNG/PDF) found in /docs"
+          exit 1
+        fi
+      shell: bash
+
+    - name: Check endpoint plan exists (MD or PDF)
+      run: |
+        if ! ls docs/*.md docs/*.pdf 2>/dev/null; then
+          echo "Error: No endpoint plan (MD/PDF) found in /docs"
+          exit 1
+        fi
+      shell: bash
+
+    - name: Check SQL script exists
+      run: |
+        if ! ls docs/*.sql 2>/dev/null; then
+          echo "Error: No SQL script found in /docs"
+          exit 1
+        fi
+      shell: bash
+
+    - name: All checks passed
+      run: echo "✅ All required Part 1 documents are present!"
