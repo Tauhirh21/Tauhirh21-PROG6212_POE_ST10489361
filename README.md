@@ -23,7 +23,7 @@ RaceDay is a full-stack web-based event management system designed specifically 
 - Browse events
 - Enter an event by selecting a category
 - View their own enrolments
-- Track their personal results
+- Track their personal  results
 
 ---
 
